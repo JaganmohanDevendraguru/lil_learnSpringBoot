@@ -1,0 +1,33 @@
+package com.fixthepro.jpa1.web;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.fixthepro.jpa1.business.service.BookingDetailsService;
+
+@Controller
+@RequestMapping("/reservations")
+public class BookingController {
+
+	private BookingDetailsService service;
+
+	@Autowired
+	public BookingController(BookingDetailsService service) {
+		this.service = service;
+	};
+
+	@GetMapping
+	public ModelAndView getBookingReservations(@RequestParam(value="date", required=false) String paramDate, ModelAndView model){
+		Date date = DateUtils.createDateFromString(paramDate);
+		model.setViewName("bookings");
+		model.addObject("bookings", service.getBookingDetailsForDate(date));
+		return model;
+	}
+}

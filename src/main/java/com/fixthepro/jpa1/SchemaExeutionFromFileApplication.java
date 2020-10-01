@@ -47,18 +47,5 @@ public class SchemaExeutionFromFileApplication {
 			return guestRepo.findAll();
 		}
 	}
-	
-	@RestController
-	@RequestMapping("/reservations")
-	public class ReservationController{
-		
-		@Autowired
-		private ReservationRepository reservRepo;
-		
-		@GetMapping
-		public Iterable<Reservation> getReservations(){
-			return reservRepo.findAll();
-		}
-	}
 
 }
