@@ -6,4 +6,5 @@ import com.fixthepro.jpa1.data.entity.Room;
 
 public interface RoomRepository extends CrudRepository<Room, Long>{
 
+	Room findRoomByRoomId(long id);
 }

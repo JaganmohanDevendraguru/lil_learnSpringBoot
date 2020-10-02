@@ -2,9 +2,8 @@ package com.fixthepro.jpa1.business.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,29 +32,28 @@ public class BookingDetailsService {
 	}
 	
 	public List<BookingDetails> getBookingDetailsForDate(Date date){
-		Map<Long, BookingDetails> bookingMap = new HashMap<>();
-		Iterable<Room> roomsList = this.roomRepo.findAll();
-		roomsList.forEach(room -> {
+		//return list initialize
+		List<BookingDetails> bookDetList = new ArrayList<>();
+		//list of reservation of that date
+		Iterable<Reservation> reservList = reservRepo.findReservationByDate(new java.sql.Date(date.getTime()));
+		//if we have reservations on that day loop it
+		if (reservList != null && (StreamSupport.stream(reservList.spliterator(), false).count() < 1) ) {
+			
+		}
+		reservList.forEach(reserv -> {
 			BookingDetails bookObj = new BookingDetails();
+			bookObj.setDate(reserv.getDate());
+			Guest guest = this.guestRepo.findByGuestId(reserv.getGuestId());
+			bookObj.setFirstName(guest.getFirstName());
+			bookObj.setLastName(guest.getLastName());
+			bookObj.setGuestId(guest.getGuestId());
+			Room room = this.roomRepo.findRoomByRoomId(reserv.getRoomId());
 			bookObj.setRoomId(room.getRoomId());
 			bookObj.setRoomName(room.getName());
 			bookObj.setRoomNumber(room.getRoomNumber());
-			bookingMap.put(room.getRoomId(), bookObj);
+			bookDetList.add(bookObj);
 		});
 		
-		Iterable<Reservation> reservList = reservRepo.findReservationByDate(new java.sql.Date(new Date().getTime()));
-		reservList.forEach(reserv -> {
-			BookingDetails bookDet = bookingMap.get(reserv.getRoomId());
-			bookDet.setDate(reserv.getDate());
-			Guest guest = this.guestRepo.findByGuestId(reserv.getGuestId());
-			bookDet.setFirstName(guest.getFirstName());
-			bookDet.setLastName(guest.getLastName());
-			bookDet.setGuestId(guest.getGuestId());
-		});
-		List<BookingDetails> bookDetList = new ArrayList<>();
-		for(long id: bookingMap.keySet()) {
-			bookDetList.add(bookingMap.get(id));
-		}
 		return bookDetList;
 	}
 }

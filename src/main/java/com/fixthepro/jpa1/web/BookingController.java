@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,8 +25,14 @@ public class BookingController {
 	@GetMapping
 	public ModelAndView getBookingReservations(@RequestParam(value="date", required=false) String paramDate, ModelAndView model){
 		Date date = DateUtils.createDateFromString(paramDate);
+		System.out.println(date +" <=> "+ paramDate);
 		model.setViewName("bookings");
 		model.addObject("bookings", service.getBookingDetailsForDate(date));
 		return model;
+	}
+	
+	@GetMapping("home")
+	public String home() {
+		return "index";
 	}
 }

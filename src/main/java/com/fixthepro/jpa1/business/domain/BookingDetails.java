@@ -11,6 +11,7 @@ public class BookingDetails {
 	private Date date;
 	private String roomName;
 	private String roomNumber;
+	
 	public long getRoomId() {
 		return roomId;
 	}
@@ -52,5 +53,11 @@ public class BookingDetails {
 	}
 	public void setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
+	}
+	@Override
+	public String toString() {
+		return "BookingDetails [roomId=" + roomId + ", guestId=" + guestId + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", date=" + date + ", roomName=" + roomName + ", roomNumber=" + roomNumber + "]";
 	}	
+	
 }
