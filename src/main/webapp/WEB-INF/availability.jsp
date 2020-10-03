@@ -33,7 +33,7 @@
         <h1>Welcome to the Reservations Page</h1>
     </div>
     		<div class="input-group date">
-			<input type="text" class="form-control" placeholder="Select Date" id="pickyDate">
+			<input type="text" class="form-control" placeholder="Select Date" id="pickyDate" aria-describedby="basic-addon1">
 			<div class="input-group-addon">
 				<span class="glyphicon glyphicon-th"></span>
 			</div>
@@ -44,13 +44,15 @@
             <td>Room Number</td>
             <td>Guest</td>
         </tr>
-        <tr>
+        
         <c:forEach items="${bookings}" var="roomReservation" >
+        <tr>
             <td>${roomReservation.roomName}</td>
             <td>${roomReservation.roomNumber}</td>
             <td><c:out value="${roomReservation.lastName != null ? roomReservation.lastName : 'VACANT'}" /></td>
+            </tr>
         </c:forEach>
-        </tr>
+        
     </table>
 </div>
 <footer class="footer navbar-inverse navbar-fixed-bottom">

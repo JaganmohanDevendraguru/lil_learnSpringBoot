@@ -20,28 +20,41 @@
 <title>${title}</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">Landon Hotels</a>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="page-header">
-        <h1>Select an option</h1>
-    </div>
-    <a href="/guests" class="btn btn-default">Guests</a>
-    <a href="/reservations" class="btn btn-default">Reservations</a>
-</div>
-<footer class="footer navbar-inverse navbar-fixed-bottom">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4"><p class="text-muted">@Copyright 2020 Jaganmohan D.</p></div>
-        </div>
-    </div>
-</footer>
-
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Landon Hotels</a>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="page-header">
+			<h1>Welcome to the Reservations Page</h1>
+		</div>
+		<table class="table table-striped table-bordered">
+			<tr>
+				<td>First Name</td>
+				<td>Last Name</td>
+				<td>Email</td>
+			</tr>
+			<c:forEach items="${guests}" var="guest">
+				<tr>
+					<td>${guest.firstName}</td>
+					<td>${guest.lastName}</td>
+					<td>${guest.email}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+	<footer class="footer navbar-inverse navbar-fixed-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<p class="text-muted">@Copyright 2017 Frank Moley</p>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

@@ -31,8 +31,12 @@ public class BookingController {
 		return model;
 	}
 	
-	@GetMapping("home")
-	public String home() {
-		return "index";
+	@GetMapping("availability")
+	public ModelAndView getAvailabilities(@RequestParam(value="date", required=false) String paramDate, ModelAndView model){
+		Date date = DateUtils.createDateFromString(paramDate);
+		System.out.println(date +" <=> "+ paramDate);
+		model.setViewName("availability");
+		model.addObject("bookings", service.getAvailabilitiesForDate(date));
+		return model;
 	}
 }
