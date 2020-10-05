@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fixthepro.jpa1.business.service.BookingDetailsService;
 
 @Controller
-@RequestMapping("/reservations")
 public class BookingController {
 
 	private BookingDetailsService service;
@@ -22,7 +21,7 @@ public class BookingController {
 		this.service = service;
 	};
 
-	@GetMapping
+	@GetMapping("/reservations")
 	public ModelAndView getBookingReservations(@RequestParam(value="date", required=false) String paramDate, ModelAndView model){
 		Date date = DateUtils.createDateFromString(paramDate);
 		System.out.println(date +" <=> "+ paramDate);
@@ -31,7 +30,7 @@ public class BookingController {
 		return model;
 	}
 	
-	@GetMapping("availability")
+	@GetMapping("/availability")
 	public ModelAndView getAvailabilities(@RequestParam(value="date", required=false) String paramDate, ModelAndView model){
 		Date date = DateUtils.createDateFromString(paramDate);
 		System.out.println(date +" <=> "+ paramDate);
